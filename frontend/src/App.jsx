@@ -16,7 +16,7 @@ function App() {
                 <Dashboard />
             </PrivateRoute>
             }
-          />
+          /> 
         </Routes>
     </Router>
   );
