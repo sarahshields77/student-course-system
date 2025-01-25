@@ -12,6 +12,7 @@ const studentSchema = new mongoose.Schema({
   program: String,
   favouriteTopic: String,  // Custom field 1
   strongestSkill: String, // Custom field 2
+  courses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }], // One-to-Many relationship to courses
 });
 
 module.exports = mongoose.model('Student', studentSchema);

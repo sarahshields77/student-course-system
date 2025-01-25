@@ -51,9 +51,9 @@ exports.registerStudent = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-  };
+};
   
-  exports.loginStudent = async (req, res) => {
+exports.loginStudent = async (req, res) => {
     const { studentNumber, password } = req.body;
 
     try {
@@ -91,5 +91,74 @@ exports.registerStudent = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
+};
+
+exports.getStudentCourses = async (req, res) => { 
+    try {
+        const student = await Student.findById(req.user.id).populate('courses');
+        if (!student) {
+            return res.status(404).json({ message: 'Student not found' });
+        }
+        res.status(200).json(student.courses);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.addCourse = async (req, res) => { 
+    const { courseId } = req.body;
+    try {
+        const student = await Student.findById(req.user.id);
+        if (!student) {
+            return res.status(404).json({ message: 'Student not found' });
+        }
+
+        if (student.courses.includes(courseId)) {
+            return res.status(400).json({ message: 'Course already added' });
+        }
+
+        student.courses.push(courseId);
+        await student.save();
+
+        res.status(200).json({ message: 'Course added successfully', courses: student.courses });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.updateCourse = async (req, res) => { 
+    const { courseId, newSection } = req.body;
+
+    try {
+        const course = await Course.findById(courseId);
+        if (!course) {
+            return res.status(404).json({ message: 'Course not found' });
+        }
+
+        course.section = newSection;
+        await course.save();
+
+        res.status(200).json({ message: 'Course updated successfully', course });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.dropCourse = async (req, res) => { 
+    const { courseId } = req.body;
+
+    try {
+        const student = await Student.findById(req.user.id);
+        if (!student) {
+            return res.status(404).json({ message: 'Student not found' });
+        }
+
+        student.courses = student.courses.filter((id) => id.toString() !== courseId);
+        await student.save();
+
+        res.status(200).json({ message: 'Course dropped successfully', courses: student.courses });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }  
 };
   
