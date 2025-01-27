@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import axios from '../api/api';
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import axios from "../api/api";
 
-
-function LoginForm() {
-    const [formData, setFormData] = useState({ studentNumber: '', password: ''});
+function AdminLoginForm() {
+    const [formData, setFormData] = useState({ adminId: "", password: "" });
     const [error, setError] = useState(null);
-    const { setUser } = useAuth(); // use context to manage logged-in user state
+    const { setUser } = useAuth();
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -18,27 +17,30 @@ function LoginForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/students/login', formData);
+            const response = await axios.post("/admins/login", formData);
             alert(response.data.message);
-
-            // set user in context and redirect to the dashboard
-            setUser(response.data.student);
-            navigate('/dashboard');
+    
+            // Set user in context with isAdmin flag
+            setUser({ ...response.data.admin, isAdmin: true });
+            console.log("Admin Set in Context:", { ...response.data.admin, isAdmin: true });
+    
+            navigate("/admin-dashboard");
         } catch (err) {
-            setError(err.response?.data?.message || 'An error occurred');
+            console.error("Login Error:", err);
+            setError(err.response?.data?.message || "An error occurred");
         }
-     };
+    };
 
     return (
         <div>
-            <h2>Student Login</h2>
+            <h2>Admin Login</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Student Number</label>
+                    <label>Admin ID</label>
                     <input
                         type="text"
-                        name="studentNumber"
-                        value={formData.studentNumber}
+                        name="adminId"
+                        value={formData.adminId}
                         onChange={handleChange}
                         required
                     />
@@ -53,11 +55,11 @@ function LoginForm() {
                         required
                     />
                 </div>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
+                {error && <p style={{ color: "red" }}>{error}</p>}
                 <button type="submit">Login</button>
             </form>
         </div>
     );
 }
 
-export default LoginForm;
+export default AdminLoginForm;

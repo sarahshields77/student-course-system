@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import axios from '../api/api';
 
-
-function LoginForm() {
-    const [formData, setFormData] = useState({ studentNumber: '', password: ''});
+function AdminRegisterForm() {
+    const [formData, setFormData] = useState({
+        adminId: '',
+        password: '',
+    });
     const [error, setError] = useState(null);
-    const { setUser } = useAuth(); // use context to manage logged-in user state
+    const [success, setSuccess] = useState(null);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -17,28 +18,30 @@ function LoginForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("Form Data:", formData); // For debugging
         try {
-            const response = await axios.post('/students/login', formData);
-            alert(response.data.message);
+            const response = await axios.post('/admins/register', formData);
+            setSuccess(response.data.message);
+            setError(null);
 
-            // set user in context and redirect to the dashboard
-            setUser(response.data.student);
-            navigate('/dashboard');
+            // Redirect to login after successful registration
+            navigate('/admin-login');
         } catch (err) {
             setError(err.response?.data?.message || 'An error occurred');
+            setSuccess(null);
         }
-     };
+    };
 
     return (
         <div>
-            <h2>Student Login</h2>
+            <h2>Admin Registration</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Student Number</label>
+                    <label>Admin ID</label>
                     <input
                         type="text"
-                        name="studentNumber"
-                        value={formData.studentNumber}
+                        name="adminId"
+                        value={formData.adminId}
                         onChange={handleChange}
                         required
                     />
@@ -54,10 +57,11 @@ function LoginForm() {
                     />
                 </div>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
-                <button type="submit">Login</button>
-            </form>
+                {success && <p style={{ color: 'green' }}>{success}</p>}
+                <button type="submit">Register</button>
+            </form>           
         </div>
     );
 }
 
-export default LoginForm;
+export default AdminRegisterForm;

@@ -7,12 +7,14 @@ const {
   getStudentCourses,
   addCourse,
   updateCourse,
-  dropCourse
+  dropCourse,
+  getStudentProfile
 } = require('../controllers/studentController');
 
 // Routes for student operations
 router.post('/register', registerStudent);
 router.post('/login', loginStudent);
+router.get('/profile', protect, getStudentProfile);
 router.post('/logout', (req, res) => {
   res.clearCookie('token').json({ message: 'Logged out successfully' });
 });

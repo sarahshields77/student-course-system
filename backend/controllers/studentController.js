@@ -57,39 +57,46 @@ exports.loginStudent = async (req, res) => {
     const { studentNumber, password } = req.body;
 
     try {
-        // Check if student exists
         const student = await Student.findOne({ studentNumber });
         if (!student) {
-            console.log('Student not found', studentNumber);
             return res.status(404).json({ message: 'Student not found' });
         }
 
-        // Verify password
-        console.log('Password provided:', password);
-        console.log('Hashed password in DB:', student.password);
-
         const isMatch = await bcrypt.compare(password, student.password);
-        console.log('Password match:', isMatch);
-        
         if (!isMatch) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        // Generate JWT
-        const token = jwt.sign({ id: student._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        // Generate JWT with role
+        const token = jwt.sign(
+            { id: student._id, role: 'student' },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' }
+        );
 
-        // Send token as an HTTP-only cookie
         res.cookie('token', token, { httpOnly: true }).json({
             message: 'Logged in successfully',
-            student: {
-                id: student._id,
-                studentNumber: student.studentNumber,
-                firstName: student.firstName,
-                lastName: student.lastName,
-            },
+            student: { id: student._id, studentNumber: student.studentNumber },
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
+    }
+};
+
+exports.getStudentProfile = async (req, res) => {
+    try {
+        if (req.user.role !== 'student') {
+            return res.status(403).json({ message: 'Forbidden: Not a student' });
+        }
+
+        const student = await Student.findById(req.user.id);
+        if (!student) {
+            return res.status(404).json({ message: 'Student not found' });
+        }
+
+        res.status(200).json({ user: student });
+    } catch (error) {
+        res.status(500).json({ message: 'Error retrieving student profile' });
     }
 };
 

@@ -5,20 +5,19 @@ const protect = (req, res, next) => {
   const token = req.cookies.token;
 
   if (!token) {
-    return res.status(401).json({ message: 'Unauthorized, no token provided' });
-  }
+    console.log('No token provided'); // For debugging, not an error
+    return res.status(403).json({ message: 'Forbidden: No token provided' });
+}
 
-  try {
-    // verify token
+try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    // attach user info to request object
-    req.user = decoded;
-
-    next(); // continue to next middleware or controller
-  } catch (error) {
-      res.status(401).json({ message: 'Unauthorized, invalid token' });
-  }
+    req.user = decoded; // Attach decoded token to req.user
+    console.log('Decoded token:', decoded);
+    next(); // Proceed to the next middleware or controller
+} catch (error) {
+    console.error('Invalid token:', error); // Log the invalid token
+    res.status(403).json({ message: 'Forbidden: Invalid token' });
+}
 };
 
 module.exports = { protect };

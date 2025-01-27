@@ -25,6 +25,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/students', require('./routes/studentRoutes'));
 app.use('/api/courses', require('./routes/courseRoutes'));
+app.use('/api/admins', require('./routes/adminRoutes'));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

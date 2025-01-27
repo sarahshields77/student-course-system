@@ -1,0 +1,72 @@
+const Admin = require('../models/adminModel');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
+exports.addAdmin = async (req, res) => {
+    const { adminId, password } = req.body;
+
+    try {
+        // Check if admin already exists
+        const existingAdmin = await Admin.findOne({ adminId });
+        if (existingAdmin) {
+            return res.status(400).json({ message: 'Admin already exists' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const admin = new Admin({ adminId, password: hashedPassword });
+        await admin.save();
+
+        res.status(201).json({ message: 'Admin added successfully', adminId: admin.adminId });
+    } catch (error) {
+        console.error('Error adding admin:', error);
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.getAdminProfile = async (req, res) => {
+    try {
+        if (req.user.role !== 'admin') {
+            return res.status(403).json({ message: 'Forbidden: Not an admin' });
+        }
+
+        const admin = await Admin.findById(req.user.id);
+        if (!admin) {
+            return res.status(404).json({ message: 'Admin not found' });
+        }
+
+        res.status(200).json({ admin });
+    } catch (error) {
+        res.status(500).json({ message: 'Error retrieving admin profile' });
+    }
+};
+
+exports.loginAdmin = async (req, res) => {
+    const { adminId, password } = req.body;
+
+    try {
+        const admin = await Admin.findOne({ adminId });
+        if (!admin) {
+            return res.status(404).json({ message: 'Admin not found' });
+        }
+
+        const isMatch = await bcrypt.compare(password, admin.password);
+        if (!isMatch) {
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
+
+        // Generate JWT with role
+        const token = jwt.sign(
+            { id: admin._id, role: 'admin' },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' }
+        );
+
+        res.cookie('token', token, { httpOnly: true }).json({
+            message: 'Logged in successfully',
+            admin: { id: admin._id, adminId: admin.adminId },
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
