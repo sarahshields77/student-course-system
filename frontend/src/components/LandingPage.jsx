@@ -3,21 +3,21 @@ import { Link } from "react-router-dom";
 
 function LandingPage() {
     return (
-        <div style={{ textAlign: "center", marginTop: "50px" }}>
-            <h1>Welcome to the Student-Course Management System</h1>
-            <p>Select an option below to continue:</p>
-            <div style={{ marginTop: "20px" }}>
-                <Link to="/register">
-                    <button style={{ margin: "10px" }}>Student Register</button>
+        <div className="container text-center mt-5">
+            <h1 className="mb-4">Welcome to the Student-Course Management System</h1>
+            <p className="mb-4">Select an option below to continue:</p>
+            <div className="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
+                <Link to="/register" className="btn btn-primary">
+                    Student Register
                 </Link>
-                <Link to="/login">
-                    <button style={{ margin: "10px" }}>Student Login</button>
+                <Link to="/login" className="btn btn-secondary">
+                    Student Login
                 </Link>
-                <Link to="/admin-register">
-                    <button style={{ margin: "10px" }}>Admin Register</button>
+                <Link to="/admin-register" className="btn btn-success">
+                    Admin Register
                 </Link>
-                <Link to="/admin-login">
-                    <button style={{ margin: "10px" }}>Admin Login</button>
+                <Link to="/admin-login" className="btn btn-warning">
+                    Admin Login
                 </Link>
             </div>
         </div>

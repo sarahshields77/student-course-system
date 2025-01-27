@@ -11,32 +11,18 @@ const {
   getStudentProfile
 } = require('../controllers/studentController');
 
-// Routes for student operations
+// Public Routes
 router.post('/register', registerStudent);
 router.post('/login', loginStudent);
+
+// Protected Routes
 router.get('/profile', protect, getStudentProfile);
+router.get('/courses', protect, getStudentCourses); // View all courses
+router.post('/courses/add', protect, addCourse); // Add a course
+router.put('/courses/update', protect, updateCourse); // Update a course
+router.post('/courses/drop', protect, dropCourse); // Drop a course
 router.post('/logout', (req, res) => {
   res.clearCookie('token').json({ message: 'Logged out successfully' });
 });
-
-// Protected routes
-router.get('/profile', protect, (req, res) => {
-  res.json({ 
-    message: 'This is your profile',
-    user: req.user, // access the decoded JWT payload here
-   });
-});
-
-// View all courses taken by a student
-router.get('/courses', protect, getStudentCourses);
-
-// Add a course
-router.put('/courses', protect, addCourse);
-
-// Update a course
-router.put('/courses', protect, updateCourse);
-
-// Drop a course
-router.delete('/courses', protect, dropCourse);
 
 module.exports = router;
