@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "../api/api";
+import axios from "../../api/api";
 
 function UpdateCourseForm() {
     const [formData, setFormData] = useState({ courseId: "", newSection: "" });

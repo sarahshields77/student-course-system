@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
-import RegisterForm from './components/RegisterForm';
-import LoginForm from './components/LoginForm';
-import Dashboard from './components/Dashboard';
-import AdminRegisterForm from './components/AdminRegisterForm';
-import AdminLoginForm from './components/AdminLoginForm';
-import AdminDashboard from './components/AdminDashboard';
-import PrivateRoute from './components/PrivateRoute';
-import AdminPrivateRoute from './components/AdminPrivateRoute';
+import RegisterForm from './components/Students/RegisterForm';
+import LoginForm from './components/Students/LoginForm';
+import Dashboard from './components/Students/Dashboard';
+import AdminRegisterForm from './components/Admins/AdminRegisterForm';
+import AdminLoginForm from './components/Admins/AdminLoginForm';
+import AdminDashboard from './components/Admins/AdminDashboard';
+import PrivateRoute from './components/Students/PrivateRoute';
+import AdminPrivateRoute from './components/Admins/AdminPrivateRoute';
 
 function App() {
   return (

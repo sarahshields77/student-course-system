@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import axios from "../api/api";
+import { useAuth } from "../../context/AuthContext";
+import axios from "../../api/api";
 
 function AdminLoginForm() {
     const [formData, setFormData] = useState({ adminId: "", password: "" });

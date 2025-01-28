@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "../api/api";
+import axios from "../../api/api";
 
 function CourseList() {
     const [courses, setCourses] = useState([]);

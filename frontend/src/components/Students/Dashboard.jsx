@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../context/AuthContext';
-import axios from '../api/api';
+import { useAuth } from '../../context/AuthContext';
+import axios from '../../api/api';
 import AddCourseForm from './AddCourseForm';
 import UpdateCourseForm from './UpdateCourseForm';
 import DropCourseForm from './DropCourseForm';
