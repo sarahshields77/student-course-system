@@ -54,3 +54,5 @@ function AdminListStudents() {
         </div>
     );
 }
+
+export default AdminListStudents;
