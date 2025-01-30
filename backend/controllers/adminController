@@ -1,4 +1,5 @@
 const Admin = require('../models/adminModel');
+const Student = require('../models/studentModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
@@ -68,5 +69,39 @@ exports.loginAdmin = async (req, res) => {
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
+    }
+};
+
+exports.addStudent = async (req, res) => {
+    const { studentNumber, password, firstName, lastName, email } = req.body;
+
+    try {
+        const existingStudent = await Student.findOne({ studentNumber });
+        if (existingStudent) {
+            return res.status(400).json({ message: "Student already exists" });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newStudent = await Student.create({
+            studentNumber,
+            password: hashedPassword,
+            firstName,
+            lastName,
+            email,
+        });
+
+        res.status(201).json({ message: "Student added successfully", student: newStudent });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+exports.getAllStudents = async (req, res) => {
+    try {
+        const students = await Student.find({}, "-password");
+        res.status(200).json(students);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 };
