@@ -41,118 +41,90 @@ function RegisterForm() {
     };
 
     return (
-        <div>
-            <h2>Student Registration</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Student Number</label>
-                    <input
-                        type="text"
-                        name="studentNumber"
-                        value={formData.studentNumber}
-                        onChange={handleChange}
-                        required
-                    />
+        <div className="container mt-5">
+        <div className="row justify-content-center">
+            <div className="col-md-8">
+                <div className="card shadow-lg p-4">
+                    <h2 className="text-center mb-4">Student Registration</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div className="row">
+                            {/* Left Column */}
+                            <div className="col-md-6">
+                                <div className="mb-3">
+                                    <label className="form-label">Student Number</label>
+                                    <input type="text" name="studentNumber" className="form-control" 
+                                        value={formData.studentNumber} onChange={handleChange} required />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Password</label>
+                                    <input type="password" name="password" className="form-control"
+                                        value={formData.password} onChange={handleChange} required />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">First Name</label>
+                                    <input type="text" name="firstName" className="form-control"
+                                        value={formData.firstName} onChange={handleChange} required />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Last Name</label>
+                                    <input type="text" name="lastName" className="form-control"
+                                        value={formData.lastName} onChange={handleChange} required />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Address</label>
+                                    <input type="text" name="address" className="form-control"
+                                        value={formData.address} onChange={handleChange} />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">City</label>
+                                    <input type="text" name="city" className="form-control"
+                                        value={formData.city} onChange={handleChange} />
+                                </div>
+                            </div>
+
+                            {/* Right Column */}
+                            <div className="col-md-6">
+                                <div className="mb-3">
+                                    <label className="form-label">Phone</label>
+                                    <input type="text" name="phone" className="form-control"
+                                        value={formData.phone} onChange={handleChange} />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Email</label>
+                                    <input type="email" name="email" className="form-control"
+                                        value={formData.email} onChange={handleChange} required />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Program</label>
+                                    <input type="text" name="program" className="form-control"
+                                        value={formData.program} onChange={handleChange} />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Favourite Topic</label>
+                                    <input type="text" name="favouriteTopic" className="form-control"
+                                        value={formData.favouriteTopic} onChange={handleChange} />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Strongest Skill</label>
+                                    <input type="text" name="strongestSkill" className="form-control"
+                                        value={formData.strongestSkill} onChange={handleChange} />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Error & Success Messages */}
+                        {error && <div className="alert alert-danger mt-3">{error}</div>}
+                        {success && <div className="alert alert-success mt-3">{success}</div>}
+
+                        {/* Submit Button */}
+                        <div className="text-center">
+                            <button type="submit" className="btn btn-secondary w-25">Register</button>
+                        </div>
+                    </form>
                 </div>
-                <div>
-                    <label>Password</label>
-                    <input
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>First Name</label>
-                    <input
-                        type="text"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Last Name</label>
-                    <input
-                        type="text"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Address</label>
-                    <input
-                        type="text"
-                        name="address"
-                        value={formData.address}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div>
-                    <label>City</label>
-                    <input
-                        type="text"
-                        name="city"
-                        value={formData.city}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div>
-                    <label>Phone</label>
-                    <input
-                        type="text"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div>
-                    <label>Email</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Program</label>
-                    <input
-                        type="text"
-                        name="program"
-                        value={formData.program}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div>
-                    <label>Favourite Topic</label>
-                    <input
-                        type="text"
-                        name="favouriteTopic"
-                        value={formData.favouriteTopic}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div>
-                    <label>Strongest Skill</label>
-                    <input
-                        type="text"
-                        name="strongestSkill"
-                        value={formData.strongestSkill}
-                        onChange={handleChange}
-                    />
-                </div>
-                {error && <p style={{ color: "red" }}>{error}</p>}
-                {success && <p style={{ color: "green" }}>{success}</p>}
-                <button type="submit">Register</button>
-            </form>
+            </div>
         </div>
+    </div>
     );
 }
 

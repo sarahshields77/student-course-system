@@ -25,32 +25,38 @@ function AdminListCourses() {
     if (error) return <p className="text-danger">{error}</p>;
 
     return (
-        <div className="container mt-4">
-            <h2>List of Courses</h2>
-            {courses.length === 0 ? (
-                <p>No courses found.</p>
-            ) : (
-                <table className="table table-bordered mt-3">
-                    <thead>
-                        <tr>
-                            <th>Course Code</th>
-                            <th>Course Name</th>
-                            <th>Section</th>
-                            <th>Semester</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {courses.map((course) => (
-                            <tr key={course._id}>
-                                <td>{course.courseCode}</td>
-                                <td>{course.courseName}</td>
-                                <td>{course.section || "N/A"}</td>
-                                <td>{course.semester || "N/A"}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            )}
+        <div className="container mt-5">
+            <div className="row justify-content-center">
+                <div className="col-md-8">
+                    <div className="card shadow-lg p-4">
+                        <h2>List of Courses</h2>
+                        {courses.length === 0 ? (
+                            <p>No courses found.</p>
+                        ) : (
+                            <table className="table table-bordered mt-3">
+                                <thead>
+                                    <tr>
+                                        <th>Course Code</th>
+                                        <th>Course Name</th>
+                                        <th>Section</th>
+                                        <th>Semester</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {courses.map((course) => (
+                                        <tr key={course._id}>
+                                            <td>{course.courseCode}</td>
+                                            <td>{course.courseName}</td>
+                                            <td>{course.section || "N/A"}</td>
+                                            <td>{course.semester || "N/A"}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        )}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

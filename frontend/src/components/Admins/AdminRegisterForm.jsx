@@ -33,33 +33,35 @@ function AdminRegisterForm() {
     };
 
     return (
-        <div>
-            <h2>Admin Registration</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Admin ID</label>
-                    <input
-                        type="text"
-                        name="adminId"
-                        value={formData.adminId}
-                        onChange={handleChange}
-                        required
-                    />
+        <div className="container mt-5">
+            <div className="row justify-content-center">
+                <div className="col-md-6">
+                    <div className="card shadow-lg p-4">
+                        <h2 className="text-center mb-4">Admin Registration</h2>
+                        <form onSubmit={handleSubmit}>
+                            <div className="mb-3">
+                                <label className="form-label">Admin ID</label>
+                                <input type="text" name="adminId" className="form-control"
+                                    value={formData.adminId} onChange={handleChange} required />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Password</label>
+                                <input type="password" name="password" className="form-control"
+                                    value={formData.password} onChange={handleChange} required />
+                            </div>
+
+                            {/* Error & Success Messages */}
+                            {error && <div className="alert alert-danger mt-3">{error}</div>}
+                            {success && <div className="alert alert-success mt-3">{success}</div>}
+
+                            {/* Submit Button */}
+                            <div className="text-center">
+                                <button type="submit" className="btn btn-secondary w-25">Register</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div>
-                    <label>Password</label>
-                    <input
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                {success && <p style={{ color: 'green' }}>{success}</p>}
-                <button type="submit">Register</button>
-            </form>           
+            </div>
         </div>
     );
 }

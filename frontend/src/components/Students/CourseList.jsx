@@ -26,19 +26,25 @@ function CourseList() {
     if (error) return <p className="text-danger">Error: {error}</p>;
 
     return (
-        <div>
-            <h2>My Courses</h2>
-            {courses.length > 0 ? (
-                <ul className="list-group">
-                    {courses.map((course) => (
-                        <li key={course._id} className="list-group-item">
-                            <strong>{course.courseCode}</strong> - {course.courseName} ({course.section})
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>You have not added any courses yet.</p>
-            )}
+        <div className="container mt-5">
+            <div className="row justify-content-center">
+                <div className="col-md-8">
+                    <div className="card shadow-lg p-4">
+                        <h2 className="text-center mb-4">My Courses</h2>
+                        {courses.length > 0 ? (
+                            <ul className="list-group">
+                                {courses.map((course) => (
+                                    <li key={course._id} className="list-group-item">
+                                        <strong>{course.courseCode}</strong> - {course.courseName} ({course.section})
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p>You have not added any courses yet.</p>
+                        )}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

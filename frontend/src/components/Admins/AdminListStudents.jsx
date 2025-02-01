@@ -25,32 +25,38 @@ function AdminListStudents() {
     if (error) return <p className="text-danger">{error}</p>;
 
     return (
-        <div className="container mt-4">
-            <h2>List of Students</h2>
-            {students.length === 0 ? (
-                <p>No students found.</p>
-            ) : (
-                <table className="table table-bordered mt-3">
-                    <thead>
-                        <tr>
-                            <th>Student Number</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Program</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {students.map((student) => (
-                            <tr key={student._id}>
-                                <td>{student.studentNumber}</td>
-                                <td>{student.firstName} {student.lastName}</td>
-                                <td>{student.email}</td>
-                                <td>{student.program || "N/A"}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            )}
+        <div className="container mt-5">
+            <div className="row justify-content-center">
+                <div className="col-md-8">
+                    <div className="card shadow-lg p-4">
+                        <h2 className="text-center mb-4">List of Students</h2>
+                        {students.length === 0 ? (
+                            <p>No students found.</p>
+                        ) : (
+                            <table className="table table-bordered mt-3">
+                                <thead>
+                                    <tr>
+                                        <th>Student Number</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Program</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {students.map((student) => (
+                                        <tr key={student._id}>
+                                            <td>{student.studentNumber}</td>
+                                            <td>{student.firstName} {student.lastName}</td>
+                                            <td>{student.email}</td>
+                                            <td>{student.program || "N/A"}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        )}
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

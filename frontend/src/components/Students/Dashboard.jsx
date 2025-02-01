@@ -28,29 +28,29 @@ function Dashboard() {
     }
 
     return (
-        <div className="container mt-4">
-            <h1 className="text-center">Welcome, {profile.firstName} {profile.lastName}!</h1>
+        <div className="container text-center mt-5">
+            <h2 className="text-center mb-4">Welcome, {profile.firstName} {profile.lastName}!</h2>
             <p className="text-center">Program: {profile.program}</p>
             <p className="text-center">Student Number: {profile.studentNumber}</p>
 
-            <div className="text-center mt-3">
+            <div className="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
                 <button 
-                    className="btn btn-primary m-2" 
+                    className="btn btn-secondary m-2" 
                     onClick={() => setView("addCourse")}>
                     Add a Course
                 </button>
                 <button 
-                    className="btn btn-warning m-2" 
+                    className="btn btn-secondary m-2" 
                     onClick={() => setView("updateCourse")}>
                     Update a Course
                 </button>
                 <button 
-                    className="btn btn-danger m-2" 
+                    className="btn btn-secondary m-2" 
                     onClick={() => setView("dropCourse")}>
                     Drop a Course
                 </button>
                 <button 
-                    className="btn btn-info m-2" 
+                    className="btn btn-secondary m-2" 
                     onClick={() => setView("listCourses")}>
                     List Your Courses
                 </button>

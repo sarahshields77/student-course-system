@@ -43,29 +43,37 @@ function DropCourseForm() {
     if (!courses.length) return <p>You are not enrolled in any courses.</p>;
 
     return (
-        <div>
-            <h3>Drop a Course</h3>
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label className="form-label">Select a Course to Drop</label>
-                    <select
-                        className="form-select"
-                        value={selectedCourse}
-                        onChange={(e) => setSelectedCourse(e.target.value)}
-                        required
-                    >
-                        <option value="">-- Select a Course --</option>
-                        {courses.map((course) => (
-                            <option key={course._id} value={course.courseCode}>
-                                {course.courseCode} - {course.courseName}
-                            </option>
-                        ))}
-                    </select>
+        <div className="container mt-5">
+            <div className="row justify-content-center">
+                <div className="col-md-6">
+                    <div className="card shadow-lg p-4">
+                        <h3 className="text-center mb-4">Drop a Course</h3>
+                        <form onSubmit={handleSubmit}>
+                            <div className="mb-3">
+                                <label className="form-label">Select a Course to Drop</label>
+                                <select
+                                    className="form-select"
+                                    value={selectedCourse}
+                                    onChange={(e) => setSelectedCourse(e.target.value)}
+                                    required
+                                >
+                                    <option value="">-- Select a Course --</option>
+                                    {courses.map((course) => (
+                                        <option key={course._id} value={course.courseCode}>
+                                            {course.courseCode} - {course.courseName}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="text-center">
+                                <button type="submit" className="btn btn-secondary">Drop Course</button>
+                                {success && <p className="text-success mt-2">{success}</p>}
+                                {error && <p className="text-danger mt-2">{error}</p>}
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <button type="submit" className="btn btn-danger">Drop Course</button>
-                {success && <p className="text-success mt-2">{success}</p>}
-                {error && <p className="text-danger mt-2">{error}</p>}
-            </form>
+            </div>
         </div>
     );
 }
