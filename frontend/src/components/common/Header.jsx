@@ -5,9 +5,9 @@ import logo from "../../assets/CCbanner.jpg";
 function Header() {
     return (
         <header className="bg-custom text-white py-3">
-            <div className="container d-flex justify-content-between align-items-center">
+            <div className="container-fluid d-flex align-items-center justify-content-between">
                 <img src={logo} alt="Centennial Logo" className="me-3" style={{ height: "50px" }} />
-                <h3>Student Course System</h3>
+                <h3 className="m-0">Student Course System</h3>
                 <nav>
                     <Link className="text-white mx-3 text-decoration-none" to="/">Home</Link>
                     <Link className="text-white mx-3 text-decoration-none" to="/login">Student Login</Link>
@@ -15,6 +15,7 @@ function Header() {
                 </nav>
             </div>
         </header>
+
     );
 }
 
